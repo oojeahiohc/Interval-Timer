@@ -1,0 +1,7 @@
+<!-- 화면 문구를 한곳에서 관리하고 XML과 Java에서 공통으로 참조하기 위한 리소스 파일 -->
+<resources>
+    <string name="app_name">Interval-Timer</string>
+    <string name="timer_title">Interval-Timer</string>
+    <string name="change_text_button">문구 변경</string>
+    <string name="message_changed">버튼 클릭이 동작합니다.</string>
+</resources>
