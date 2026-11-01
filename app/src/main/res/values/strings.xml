@@ -36,4 +36,12 @@
     <!-- 테스트용 버튼 안내 -->
     <string name="demo_save_notice">현재 화면에서는 루틴을 저장하지 않는다.</string>
     <string name="demo_delete_notice">현재 화면에서는 루틴을 삭제하지 않는다.</string>
+
+    <!-- strings.xml: 루틴 입력 오류 및 저장 실패 안내 -->
+    <string name="error_routine_name">이름은 공백 제거 후 1~30자로 입력한다.</string>
+    <string name="error_work_seconds">운동 시간은 1~3600초의 정수로 입력한다.</string>
+    <string name="error_rest_seconds">휴식 시간은 0~3600초의 정수로 입력한다.</string>
+    <string name="error_rounds">세트 수는 1~99의 정수로 입력한다.</string>
+    <string name="error_routine_missing">루틴을 찾을 수 없다.</string>
+    <string name="error_routine_save">루틴을 저장하지 못했다.</string>
 </resources>

@@ -1,6 +1,7 @@
-// RoutineAdapter.java: 루틴 목록 카드와 클릭 이벤트 연결
+// RoutineAdapter.java: DB 루틴 데이터를 목록 카드에 표시
 package com.example.intervaltimer.ui;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,44 +12,34 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.intervaltimer.R;
+import com.example.intervaltimer.data.Routine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoutineAdapter
         extends RecyclerView.Adapter<RoutineAdapter.RoutineViewHolder> {
 
-    // 테스트 루틴 정보를 담는 표시용 데이터
-    public static final class DemoRoutine {
-        public final long id;
-        public final String name;
-        public final int workSeconds;
-        public final int restSeconds;
-        public final int rounds;
-
-        public DemoRoutine(long id, String name, int workSeconds,
-                           int restSeconds, int rounds) {
-            this.id = id;
-            this.name = name;
-            this.workSeconds = workSeconds;
-            this.restSeconds = restSeconds;
-            this.rounds = rounds;
-        }
-    }
-
-    // 카드 버튼 클릭을 상위 화면으로 전달
     public interface OnRoutineActionListener {
-        void onStart(DemoRoutine routine);
-        void onEdit(DemoRoutine routine);
-        void onDelete(DemoRoutine routine);
+        void onStart(Routine routine);
+        void onEdit(Routine routine);
+        void onDelete(Routine routine);
     }
 
-    private final List<DemoRoutine> routines;
+    private final List<Routine> routines = new ArrayList<>();
     private final OnRoutineActionListener listener;
 
-    public RoutineAdapter(List<DemoRoutine> routines,
-                          OnRoutineActionListener listener) {
-        this.routines = routines;
+    public RoutineAdapter(OnRoutineActionListener listener) {
         this.listener = listener;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void submitRoutines(List<Routine> updated) {
+        routines.clear();
+        if (updated != null) {
+            routines.addAll(updated);
+        }
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -61,10 +52,9 @@ public class RoutineAdapter
     }
 
     @Override
-    // 카드에 루틴 데이터와 클릭 이벤트 연결
     public void onBindViewHolder(
             @NonNull RoutineViewHolder holder, int position) {
-        DemoRoutine routine = routines.get(position);
+        Routine routine = routines.get(position);
 
         holder.nameText.setText(routine.name);
         holder.summaryText.setText(holder.itemView.getContext().getString(
@@ -74,6 +64,9 @@ public class RoutineAdapter
                 routine.rounds
         ));
 
+        // 카드 자체 또는 시작 버튼을 누르면 루틴을 선택한다.
+        holder.itemView.setOnClickListener(
+                view -> listener.onStart(routine));
         holder.startButton.setOnClickListener(
                 view -> listener.onStart(routine));
         holder.editButton.setOnClickListener(
