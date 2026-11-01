@@ -1,4 +1,4 @@
-// TimerActivity.java: 타이머 상태 표시·버튼·생명주기 관리
+// TimerActivity.java: 선택한 루틴의 READY·RUNNING·완료 화면
 package com.example.intervaltimer.ui;
 
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
@@ -41,42 +42,77 @@ public class TimerActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(TimerViewModel.class);
 
-        // 새 ViewModel과 복원 정보가 함께 있으면 프로세스 종료 뒤 재생성이다.
-        if (savedInstanceState != null && !viewModel.isInitialized()) {
+        // 새 프로세스가 복원한 타이머라면 자동 재시작하지 않는다.
+        // 같은 프로세스의 화면 회전 중 조회·엔진 상태는 유지한다.
+        if (savedInstanceState != null
+                && !viewModel.hasRoutineRequest()) {
+            goToList();
+            return;
+        }
+
+        long routineId = getIntent().getLongExtra(
+                EXTRA_ROUTINE_ID, -1L);
+
+        if (routineId <= 0L) {
+            Toast.makeText(this, R.string.error_routine_missing,
+                    Toast.LENGTH_SHORT).show();
             goToList();
             return;
         }
 
         setContentView(R.layout.activity_timer);
-        startTimerButton = findViewById(R.id.startTimerButton);
-        startTimerButton.setOnClickListener(view -> viewModel.startByUser());
 
         phaseText = findViewById(R.id.timerPhaseText);
         remainingText = findViewById(R.id.timerRemainingText);
         roundText = findViewById(R.id.timerRoundText);
+        startTimerButton = findViewById(R.id.startTimerButton);
         pauseButton = findViewById(R.id.pauseButton);
         resumeButton = findViewById(R.id.resumeButton);
+
         Button stopButton = findViewById(R.id.stopButton);
         Button backToListButton = findViewById(R.id.backToListButton);
+
         controlRow = findViewById(R.id.controlRow);
         completedState = findViewById(R.id.completedState);
 
-        // 동일한 ViewModel은 화면 회전 뒤에도 사용한다.
-        viewModel.initializeDemo();
+        // 조회 전에는 데모 시간과 시작 버튼을 표시하지 않는다.
+        phaseText.setText(R.string.loading_routine);
+        remainingText.setText(R.string.loading_time);
+        roundText.setText("");
+        startTimerButton.setEnabled(false);
+        startTimerButton.setVisibility(View.GONE);
+        controlRow.setVisibility(View.GONE);
+        completedState.setVisibility(View.GONE);
 
-        viewModel.getUiState().observe(this, this::render);
-
-        pauseButton.setOnClickListener(view -> viewModel.pauseByUser());
-        resumeButton.setOnClickListener(view -> viewModel.resumeByUser());
+        startTimerButton.setOnClickListener(
+                view -> viewModel.startByUser());
+        pauseButton.setOnClickListener(
+                view -> viewModel.pauseByUser());
+        resumeButton.setOnClickListener(
+                view -> viewModel.resumeByUser());
         stopButton.setOnClickListener(view -> stopAndLeave());
         backToListButton.setOnClickListener(view -> goToList());
 
-        // 버튼으로 종료하면 즉시 목록 이동, Android 뒤로가기는 확인한다.
+        // DB 조회가 완료되면 READY 상태를 표시한다.
+        viewModel.getUiState().observe(this, this::render);
+        viewModel.getLoadFailed().observe(this, failed -> {
+            if (Boolean.TRUE.equals(failed) && !isFinishing()) {
+                Toast.makeText(this, R.string.error_routine_missing,
+                        Toast.LENGTH_SHORT).show();
+                goToList();
+            }
+        });
+
+        // 이전 조회 요청이 있으면 같은 ViewModel의 결과를 재사용한다.
+        viewModel.loadRoutine(routineId);
+
         getOnBackPressedDispatcher().addCallback(this,
                 new OnBackPressedCallback(true) {
                     @Override
                     public void handleOnBackPressed() {
                         TimerState state = viewModel.getCurrentState();
+
+                        // 시작 전·완료 상태는 확인 대화상자 없이 목록 복귀.
                         if (state == TimerState.READY
                                 || state == TimerState.COMPLETED
                                 || state == TimerState.STOPPED) {
@@ -99,7 +135,6 @@ public class TimerActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         if (viewModel != null) {
-            // 회전으로 인한 Activity 교체와 실제 백그라운드를 구분한다.
             viewModel.onNotVisible(isChangingConfigurations());
         }
         super.onStop();
@@ -114,25 +149,26 @@ public class TimerActivity extends AppCompatActivity {
             phaseText.setText(R.string.work_phase);
             phaseText.setTextColor(ContextCompat.getColor(
                     this, R.color.color_work));
-
-            remainingText.setBackgroundResource(R.drawable.bg_timer_panel);
+            remainingText.setBackgroundResource(
+                    R.drawable.bg_timer_panel);
             remainingText.setTextColor(ContextCompat.getColor(
                     this, R.color.clay_on_work));
 
+            startTimerButton.setEnabled(true);
             startTimerButton.setVisibility(View.VISIBLE);
             controlRow.setVisibility(View.GONE);
             completedState.setVisibility(View.GONE);
             return;
         }
 
-        // RUNNING·PAUSED·COMPLETED에서는 시작 버튼을 숨긴다.
         startTimerButton.setVisibility(View.GONE);
 
         if (state.state == TimerState.COMPLETED) {
             phaseText.setText(R.string.timer_complete_phase);
             phaseText.setTextColor(ContextCompat.getColor(
                     this, R.color.clay_text));
-            remainingText.setBackgroundResource(R.drawable.bg_card_clay);
+            remainingText.setBackgroundResource(
+                    R.drawable.bg_card_clay);
             remainingText.setTextColor(ContextCompat.getColor(
                     this, R.color.clay_text));
             controlRow.setVisibility(View.GONE);
@@ -156,13 +192,15 @@ public class TimerActivity extends AppCompatActivity {
 
         int buttonBackground = isWork
                 ? R.drawable.bg_button_work : R.drawable.bg_button_rest;
-        int buttonText = isWork
+        int buttonTextColor = isWork
                 ? R.color.clay_on_work : R.color.clay_on_rest;
 
         pauseButton.setBackgroundResource(buttonBackground);
         resumeButton.setBackgroundResource(buttonBackground);
-        pauseButton.setTextColor(ContextCompat.getColor(this, buttonText));
-        resumeButton.setTextColor(ContextCompat.getColor(this, buttonText));
+        pauseButton.setTextColor(
+                ContextCompat.getColor(this, buttonTextColor));
+        resumeButton.setTextColor(
+                ContextCompat.getColor(this, buttonTextColor));
 
         controlRow.setVisibility(View.VISIBLE);
         completedState.setVisibility(View.GONE);

@@ -52,4 +52,7 @@
     <string name="error_rounds">세트 수는 1~99의 정수로 입력한다.</string>
     <string name="error_routine_missing">루틴을 찾을 수 없다.</string>
     <string name="error_routine_save">루틴을 저장하지 못했다.</string>
+
+    <string name="loading_routine">루틴 불러오는 중</string>
+    <string name="loading_time">--:--</string>
 </resources>

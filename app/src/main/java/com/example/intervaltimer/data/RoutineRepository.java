@@ -4,6 +4,7 @@ package com.example.intervaltimer.data;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -32,6 +33,25 @@ public class RoutineRepository {
 
     public LiveData<Routine> getRoutineById(long id) {
         return dao.getRoutineById(id);
+    }
+
+    public interface RoutineCallback {
+        void onResult(Routine routine);
+    }
+
+    public void loadRoutineById(long id, RoutineCallback callback) {
+        DB_EXECUTOR.execute(() -> {
+            Routine routine = null;
+
+            try {
+                routine = dao.getRoutineByIdOnce(id);
+            } catch (RuntimeException error) {
+                Log.e("IntervalTimer", "Failed to load routine", error);
+            }
+
+            Routine result = routine;
+            MAIN_HANDLER.post(() -> callback.onResult(result));
+        });
     }
 
     public void insertRoutine(Routine routine, SaveCallback callback) {

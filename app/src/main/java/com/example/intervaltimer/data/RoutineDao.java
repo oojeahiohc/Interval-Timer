@@ -23,6 +23,9 @@ public interface RoutineDao {
     @Query("SELECT * FROM routines WHERE id = :id LIMIT 1")
     LiveData<Routine> getRoutineById(long id);
 
+    @Query("SELECT * FROM routines WHERE id = :id LIMIT 1")
+    Routine getRoutineByIdOnce(long id);
+
     @Update
     int updateRoutine(Routine routine);
 
