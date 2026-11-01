@@ -42,6 +42,7 @@ dependencies {
     implementation("androidx.room:room-runtime:2.8.5")
     annotationProcessor("androidx.room:room-compiler:2.8.5")
     implementation("androidx.lifecycle:lifecycle-livedata:2.11.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.11.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)

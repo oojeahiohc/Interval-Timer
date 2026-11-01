@@ -33,6 +33,13 @@
     <string name="back_to_list">목록으로</string>
     <string name="confirm_delete_title">루틴 삭제</string>
     <string name="confirm_delete_message">이 루틴을 삭제하시겠습니까?</string>
+    <string name="rest_phase">휴식</string>
+    <string name="rest_paused">휴식 · 일시정지</string>
+    <string name="round_progress">%1$d / %2$d 세트</string>
+    <string name="timer_complete_phase">완료</string>
+    <string name="stop_timer_title">운동 종료</string>
+    <string name="stop_timer_message">운동을 종료하고 목록으로 돌아가겠습니까?</string>
+
     <!-- 테스트용 버튼 안내 -->
     <string name="demo_save_notice">현재 화면에서는 루틴을 저장하지 않는다.</string>
     <string name="demo_delete_notice">현재 화면에서는 루틴을 삭제하지 않는다.</string>

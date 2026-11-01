@@ -1,107 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- activity_timer.xml: 고정값 타이머 화면 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- activity_timer.xml: 운동·휴식·완료 상태의 타이머 화면 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_app_bg"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="@dimen/clay_screen_padding">
+    android:fitsSystemWindows="true">
 
-    <!-- 운동 구간과 남은 시간 표시 -->
-    <TextView
-        android:id="@+id/timerPhaseText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/work_phase"
-        android:textColor="@color/color_work"
-        android:textSize="28sp" />
-
-    <TextView
-        android:id="@+id/timerRemainingText"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/bg_timer_panel"
-        android:elevation="8dp"
-        android:gravity="center"
-        android:text="@string/demo_time"
-        android:textColor="@color/clay_on_work"
-        android:textSize="52sp" />
-
-    <TextView
-        android:id="@+id/timerRoundText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/demo_round"
-        android:textColor="@color/clay_text"
-        android:textSize="20sp" />
-
+    <!-- 화면 패딩은 시스템 영역과 분리한다. -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/pauseButton"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/clay_button_height"
-            android:layout_weight="1"
-            android:background="@drawable/bg_button_work"
-            android:backgroundTint="@null"
-            android:text="@string/pause"
-            android:textColor="@color/clay_on_work" />
-
-        <Button
-            android:id="@+id/resumeButton"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/clay_button_height"
-            android:layout_weight="1"
-            android:background="@drawable/bg_button_work"
-            android:backgroundTint="@null"
-            android:text="@string/resume"
-            android:textColor="@color/clay_on_work"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/stopButton"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/clay_button_height"
-            android:layout_marginStart="@dimen/clay_small_gap"
-            android:layout_weight="1"
-            android:background="@drawable/bg_button_primary"
-            android:backgroundTint="@null"
-            android:text="@string/stop"
-            android:textColor="@color/clay_text" />
-    </LinearLayout>
-
-    <!-- 타이머 완료 상태 영역 -->
-    <LinearLayout
-        android:id="@+id/completedState"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:gravity="center"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:gravity="center"
+        android:padding="@dimen/clay_screen_padding">
 
+        <!-- 현재 운동 또는 휴식 구간 -->
         <TextView
+            android:id="@+id/timerPhaseText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/completed"
-            android:textColor="@color/clay_text"
-            android:textSize="24sp" />
+            android:text="@string/work_phase"
+            android:textColor="@color/color_work"
+            android:textSize="28sp" />
 
-        <Button
-            android:id="@+id/backToListButton"
+        <!-- 현재 구간의 남은 시간 -->
+        <TextView
+            android:id="@+id/timerRemainingText"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_timer_panel"
+            android:elevation="8dp"
+            android:gravity="center"
+            android:text="@string/demo_time"
+            android:textColor="@color/clay_on_work"
+            android:textSize="52sp" />
+
+        <!-- 현재 세트 / 전체 세트 -->
+        <TextView
+            android:id="@+id/timerRoundText"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/clay_button_height"
-            android:layout_marginTop="@dimen/clay_small_gap"
-            android:background="@drawable/bg_button_primary"
-            android:backgroundTint="@null"
-            android:text="@string/back_to_list"
-            android:textColor="@color/clay_text" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/demo_round"
+            android:textColor="@color/clay_text"
+            android:textSize="20sp" />
+
+        <!-- 실행 중에는 일시정지, 정지 중에는 재개만 표시한다. -->
+        <LinearLayout
+            android:id="@+id/controlRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/pauseButton"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/clay_button_height"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_work"
+                android:backgroundTint="@null"
+                android:text="@string/pause"
+                android:textColor="@color/clay_on_work" />
+
+            <Button
+                android:id="@+id/resumeButton"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/clay_button_height"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_work"
+                android:backgroundTint="@null"
+                android:text="@string/resume"
+                android:textColor="@color/clay_on_work"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/stopButton"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/clay_button_height"
+                android:layout_marginStart="@dimen/clay_small_gap"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_primary"
+                android:backgroundTint="@null"
+                android:text="@string/stop"
+                android:textColor="@color/clay_text" />
+        </LinearLayout>
+
+        <!-- 운동 완료 시 표시할 영역 -->
+        <LinearLayout
+            android:id="@+id/completedState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/completed"
+                android:textColor="@color/clay_text"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/backToListButton"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/clay_button_height"
+                android:layout_marginTop="@dimen/clay_small_gap"
+                android:background="@drawable/bg_button_primary"
+                android:backgroundTint="@null"
+                android:text="@string/back_to_list"
+                android:textColor="@color/clay_text" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>
