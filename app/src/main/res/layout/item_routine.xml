@@ -60,6 +60,6 @@
         android:layout_marginTop="@dimen/clay_small_gap"
         android:background="@drawable/bg_button_work"
         android:backgroundTint="@null"
-        android:text="@string/start"
+        android:text="@string/open_routine"
         android:textColor="@color/clay_on_work" />
 </LinearLayout>

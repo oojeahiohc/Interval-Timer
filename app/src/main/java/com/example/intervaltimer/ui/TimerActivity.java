@@ -29,6 +29,7 @@ public class TimerActivity extends AppCompatActivity {
     private TextView phaseText;
     private TextView remainingText;
     private TextView roundText;
+    private Button startTimerButton;
     private Button pauseButton;
     private Button resumeButton;
     private LinearLayout controlRow;
@@ -47,6 +48,8 @@ public class TimerActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_timer);
+        startTimerButton = findViewById(R.id.startTimerButton);
+        startTimerButton.setOnClickListener(view -> viewModel.startByUser());
 
         phaseText = findViewById(R.id.timerPhaseText);
         remainingText = findViewById(R.id.timerRemainingText);
@@ -74,7 +77,8 @@ public class TimerActivity extends AppCompatActivity {
                     @Override
                     public void handleOnBackPressed() {
                         TimerState state = viewModel.getCurrentState();
-                        if (state == TimerState.COMPLETED
+                        if (state == TimerState.READY
+                                || state == TimerState.COMPLETED
                                 || state == TimerState.STOPPED) {
                             goToList();
                         } else {
@@ -105,6 +109,24 @@ public class TimerActivity extends AppCompatActivity {
         remainingText.setText(state.remainingText);
         roundText.setText(getString(R.string.round_progress,
                 state.currentRound, state.totalRounds));
+
+        if (state.state == TimerState.READY) {
+            phaseText.setText(R.string.work_phase);
+            phaseText.setTextColor(ContextCompat.getColor(
+                    this, R.color.color_work));
+
+            remainingText.setBackgroundResource(R.drawable.bg_timer_panel);
+            remainingText.setTextColor(ContextCompat.getColor(
+                    this, R.color.clay_on_work));
+
+            startTimerButton.setVisibility(View.VISIBLE);
+            controlRow.setVisibility(View.GONE);
+            completedState.setVisibility(View.GONE);
+            return;
+        }
+
+        // RUNNING·PAUSED·COMPLETED에서는 시작 버튼을 숨긴다.
+        startTimerButton.setVisibility(View.GONE);
 
         if (state.state == TimerState.COMPLETED) {
             phaseText.setText(R.string.timer_complete_phase);

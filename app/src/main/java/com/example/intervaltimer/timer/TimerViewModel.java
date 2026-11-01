@@ -60,14 +60,24 @@ public class TimerViewModel extends AndroidViewModel {
     public void initializeDemo() {
         if (engine != null) return;
 
-        // 화면 동작 확인에 사용할 운동 20초·휴식 10초·8세트.
         engine = new TimerEngine(
                 new ElapsedRealtimeClock(), 20, 10, 8);
-        engine.start();
+        publish();
+    }
 
-        // 첫 WORK_STARTED 이벤트도 로딩 완료 후 한 번 재생한다.
+    public void startByUser() {
+        if (engine == null || engine.getState() != TimerState.READY) {
+            return;
+        }
+
+        engine.start();
         consumeEvents();
         publish();
+
+        if (visible) {
+            handler.removeCallbacks(ticker);
+            handler.post(ticker);
+        }
     }
 
     public void onVisible() {
@@ -140,11 +150,17 @@ public class TimerViewModel extends AndroidViewModel {
     private void publish() {
         if (engine == null) return;
 
+        TimerState state = engine.getState();
+        TimerPhase displayPhase = state == TimerState.READY
+                ? TimerPhase.WORK : engine.getPhase();
+        int displayRound = state == TimerState.READY
+                ? 1 : engine.getCurrentRound();
+
         uiState.setValue(new TimerUiState(
-                engine.getState(),
-                engine.getPhase(),
+                state,
+                displayPhase,
                 engine.getRemainingTimeText(),
-                engine.getCurrentRound(),
+                displayRound,
                 engine.getTotalRounds()
         ));
     }

@@ -46,13 +46,24 @@
             android:textColor="@color/clay_text"
             android:textSize="20sp" />
 
+        <Button
+            android:id="@+id/startTimerButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/clay_button_height"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_button_work"
+            android:backgroundTint="@null"
+            android:text="@string/start"
+            android:textColor="@color/clay_on_work" />
+
         <!-- 실행 중에는 일시정지, 정지 중에는 재개만 표시한다. -->
         <LinearLayout
             android:id="@+id/controlRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/pauseButton"
