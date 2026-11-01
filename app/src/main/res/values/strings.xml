@@ -1,7 +1,39 @@
-<!-- 화면 문구를 한곳에서 관리하고 XML과 Java에서 공통으로 참조하기 위한 리소스 파일 -->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- strings.xml: 화면 문구 리소스 -->
 <resources>
     <string name="app_name">Interval-Timer</string>
     <string name="timer_title">Interval-Timer</string>
     <string name="change_text_button">문구 변경</string>
-    <string name="message_changed">버튼 클릭이 동작합니다.</string>
+    <string name="message_changed">버튼 클릭이 동작합니다</string>
+
+    <!-- 목록, 편집, 타이머 화면에서 사용하는 문구 -->
+    <string name="list_title">Interval-Timer</string>
+    <string name="add_symbol">+</string>
+    <string name="add_routine">루틴 추가</string>
+    <string name="empty_routines">저장된 루틴이 없습니다.\n루틴을 추가해 주세요.</string>
+    <string name="edit_title">루틴 편집</string>
+    <string name="routine_name">루틴 이름</string>
+    <string name="work_seconds">운동 시간 (초)</string>
+    <string name="rest_seconds">휴식 시간 (초)</string>
+    <string name="rounds">세트 수</string>
+    <string name="save">저장</string>
+    <string name="cancel">취소</string>
+    <string name="edit">수정</string>
+    <string name="delete">삭제</string>
+    <string name="start">▶ 시작</string>
+    <string name="routine_summary">운동 %1$d초 · 휴식 %2$d초 · %3$d세트</string>
+    <string name="work_phase">운동</string>
+    <string name="work_paused">운동 · 일시정지</string>
+    <string name="demo_time">00:20</string>
+    <string name="demo_round">1 / 8 세트</string>
+    <string name="pause">일시정지</string>
+    <string name="resume">재개</string>
+    <string name="stop">종료</string>
+    <string name="completed">운동 완료!</string>
+    <string name="back_to_list">목록으로</string>
+    <string name="confirm_delete_title">루틴 삭제</string>
+    <string name="confirm_delete_message">이 루틴을 삭제하시겠습니까?</string>
+    <!-- 테스트용 버튼 안내 -->
+    <string name="demo_save_notice">현재 화면에서는 루틴을 저장하지 않는다.</string>
+    <string name="demo_delete_notice">현재 화면에서는 루틴을 삭제하지 않는다.</string>
 </resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- dimens.xml: 공통 여백과 크기 -->
+<resources>
+    <dimen name="clay_screen_padding">18dp</dimen>
+    <dimen name="clay_card_radius">28dp</dimen>
+    <dimen name="clay_timer_radius">30dp</dimen>
+    <dimen name="clay_button_radius">22dp</dimen>
+    <dimen name="clay_input_radius">20dp</dimen>
+    <dimen name="clay_content_padding">16dp</dimen>
+    <dimen name="clay_small_gap">10dp</dimen>
+    <dimen name="clay_button_height">52dp</dimen>
+</resources>

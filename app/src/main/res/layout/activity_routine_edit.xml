@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- activity_routine_edit.xml: 루틴 편집 화면 -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_app_bg"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/clay_screen_padding">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_title"
+            android:textColor="@color/clay_text"
+            android:textSize="24sp" />
+
+        <!-- 루틴 이름 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:labelFor="@id/nameInput"
+            android:text="@string/routine_name"
+            android:textColor="@color/clay_text" />
+
+        <EditText
+            android:id="@+id/nameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/clay_button_height"
+            android:background="@drawable/bg_input_clay"
+            android:inputType="textCapSentences"
+            android:importantForAutofill="no"
+            android:padding="@dimen/clay_content_padding"
+            android:textColor="@color/clay_text" />
+
+        <!-- 운동 시간 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/clay_content_padding"
+            android:labelFor="@id/workInput"
+            android:text="@string/work_seconds"
+            android:textColor="@color/clay_text" />
+
+        <EditText
+            android:id="@+id/workInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/clay_button_height"
+            android:background="@drawable/bg_input_clay"
+            android:inputType="number"
+            android:importantForAutofill="no"
+            android:padding="@dimen/clay_content_padding"
+            android:textColor="@color/clay_text" />
+
+        <!-- 휴식 시간 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/clay_content_padding"
+            android:labelFor="@id/restInput"
+            android:text="@string/rest_seconds"
+            android:textColor="@color/clay_text" />
+
+        <EditText
+            android:id="@+id/restInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/clay_button_height"
+            android:background="@drawable/bg_input_clay"
+            android:inputType="number"
+            android:importantForAutofill="no"
+            android:padding="@dimen/clay_content_padding"
+            android:textColor="@color/clay_text" />
+
+        <!-- 세트 수 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/clay_content_padding"
+            android:labelFor="@id/roundsInput"
+            android:text="@string/rounds"
+            android:textColor="@color/clay_text" />
+
+        <EditText
+            android:id="@+id/roundsInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/clay_button_height"
+            android:background="@drawable/bg_input_clay"
+            android:inputType="number"
+            android:importantForAutofill="no"
+            android:padding="@dimen/clay_content_padding"
+            android:textColor="@color/clay_text" />
+
+        <!-- 취소 및 저장 버튼 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancelEditButton"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/clay_button_height"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_primary"
+                android:backgroundTint="@null"
+                android:text="@string/cancel"
+                android:textColor="@color/clay_text" />
+
+            <Button
+                android:id="@+id/saveRoutineButton"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/clay_button_height"
+                android:layout_marginStart="@dimen/clay_small_gap"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_work"
+                android:backgroundTint="@null"
+                android:text="@string/save"
+                android:textColor="@color/clay_on_work" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
