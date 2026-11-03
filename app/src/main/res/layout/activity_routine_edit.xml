@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- activity_routine_edit.xml: 루틴 편집 화면 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_app_bg"
+    android:fitsSystemWindows="true"
     android:fillViewport="true">
 
     <LinearLayout
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -28,16 +33,14 @@
             android:text="@string/routine_name"
             android:textColor="@color/clay_text" />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
+            style="@style/ClayInput"
             android:id="@+id/nameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/clay_button_height"
             android:background="@drawable/bg_input_clay"
             android:inputType="textCapSentences"
-            android:importantForAutofill="no"
-            android:padding="@dimen/clay_content_padding"
-            android:textColor="@color/clay_text" />
+            android:importantForAutofill="no" />
 
         <!-- 운동 시간 -->
         <TextView
@@ -48,16 +51,14 @@
             android:text="@string/work_seconds"
             android:textColor="@color/clay_text" />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
+            style="@style/ClayInput"
             android:id="@+id/workInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/clay_button_height"
             android:background="@drawable/bg_input_clay"
             android:inputType="number"
-            android:importantForAutofill="no"
-            android:padding="@dimen/clay_content_padding"
-            android:textColor="@color/clay_text" />
+            android:importantForAutofill="no" />
 
         <!-- 휴식 시간 -->
         <TextView
@@ -68,16 +69,14 @@
             android:text="@string/rest_seconds"
             android:textColor="@color/clay_text" />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
+            style="@style/ClayInput"
             android:id="@+id/restInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/clay_button_height"
             android:background="@drawable/bg_input_clay"
             android:inputType="number"
-            android:importantForAutofill="no"
-            android:padding="@dimen/clay_content_padding"
-            android:textColor="@color/clay_text" />
+            android:importantForAutofill="no" />
 
         <!-- 세트 수 -->
         <TextView
@@ -88,44 +87,42 @@
             android:text="@string/rounds"
             android:textColor="@color/clay_text" />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
+            style="@style/ClayInput"
             android:id="@+id/roundsInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/clay_button_height"
             android:background="@drawable/bg_input_clay"
             android:inputType="number"
-            android:importantForAutofill="no"
-            android:padding="@dimen/clay_content_padding"
-            android:textColor="@color/clay_text" />
+            android:importantForAutofill="no" />
 
         <!-- 취소 및 저장 버튼 -->
         <LinearLayout
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:orientation="horizontal">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/ClayButton"
                 android:id="@+id/cancelEditButton"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/clay_button_height"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_primary"
-                android:backgroundTint="@null"
-                android:text="@string/cancel"
-                android:textColor="@color/clay_text" />
+                android:text="@string/cancel" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/ClayButton"
                 android:id="@+id/saveRoutineButton"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/clay_button_height"
                 android:layout_marginStart="@dimen/clay_small_gap"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_work"
-                android:backgroundTint="@null"
-                android:text="@string/save"
-                android:textColor="@color/clay_on_work" />
+                android:text="@string/save" />
 
         </LinearLayout>
     </LinearLayout>

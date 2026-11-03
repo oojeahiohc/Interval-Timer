@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- bg_input_clay.xml: 편집 입력창 배경 -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- 입력창 아래쪽의 얕은 그림자 -->
-    <item android:left="2dp" android:top="3dp" android:right="2dp">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/bg_shadow" />
+            <solid android:color="@android:color/white" />
             <corners android:radius="@dimen/clay_input_radius" />
+            <stroke android:width="2dp" android:color="@color/color_work" />
         </shape>
     </item>
-
-    <!-- 입력창의 밝은 표면 -->
-    <item android:bottom="2dp">
+    <item>
         <shape android:shape="rectangle">
-            <gradient
-                android:angle="135"
-                android:startColor="@color/clay_highlight"
-                android:endColor="@color/clay_surface" />
+            <solid android:color="@android:color/white" />
             <corners android:radius="@dimen/clay_input_radius" />
-            <stroke
-                android:width="1dp"
-                android:color="@color/clay_stroke_light" />
+            <stroke android:width="1dp" android:color="@color/color_rest" />
         </shape>
     </item>
-</layer-list>
+</selector>

@@ -1,35 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- colors.xml: 공통 테마 및 상태 색상 -->
+<!-- 밝은 회색 표면에 핑크만 강조한다. 색상 변수는 여섯 개로 유지한다. -->
 <resources>
-    <!-- 세 가지 테마 색상 -->
-    <color name="color_app_bg">#E7B0DE</color>
-    <color name="color_work">#400849</color>
-    <color name="color_rest">#FF5A0A</color>
-
-    <!-- 핑크 배경과 카드의 밝은 면, 그림자 -->
-    <color name="bg_highlight">#F7D8F0</color>
-    <color name="bg_surface">#EBC0E4</color>
-    <color name="bg_shadow">#C98FBE</color>
-    <color name="clay_surface">#F2D4EC</color>
-    <color name="clay_surface_2">#EFD0E8</color>
-    <color name="clay_highlight">#FFF4FC</color>
-    <color name="clay_shadow">#C88FBD</color>
-    <color name="clay_stroke_light">#FFF7FD</color>
-    <color name="clay_stroke_dark">#D49AC8</color>
-    <color name="clay_outline">#D38BC7</color>
-
-    <!-- 운동 상태의 입체감 -->
-    <color name="work_light">#6E3B75</color>
-    <color name="work_dark">#2F0535</color>
-    <color name="work_outline">#8F6A95</color>
-
-    <!-- 휴식 상태의 입체감 -->
-    <color name="rest_light">#FF8754</color>
-    <color name="rest_dark">#D94700</color>
-    <color name="rest_outline">#FFC1A5</color>
-
-    <!-- 텍스트 대비 -->
-    <color name="clay_text">#321336</color>
-    <color name="clay_on_work">#FFFFFF</color>
-    <color name="clay_on_rest">#2C1408</color>
+    <color name="color_app_bg">#F1F1F1</color>
+    <color name="color_work">#E99BBC</color>
+    <color name="color_rest">#F3D4E1</color>
+    <color name="color_card">#FAFAFA</color>
+    <color name="color_secondary">#D2C7CD</color>
+    <color name="clay_text">#353A47</color>
 </resources>

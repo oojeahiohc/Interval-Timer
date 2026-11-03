@@ -1,42 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- bg_button_primary.xml: 공통 버튼 배경 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!-- 누를 때 표면이 낮아진 느낌 -->
     <item android:state_pressed="true">
-        <shape android:shape="rectangle">
-            <gradient
-                android:angle="135"
-                android:startColor="@color/clay_surface_2"
-                android:endColor="@color/clay_surface" />
-            <corners android:radius="@dimen/clay_button_radius" />
-            <stroke
-                android:width="1dp"
-                android:color="@color/clay_stroke_dark" />
-        </shape>
+        <inset android:insetTop="2dp">
+            <shape android:shape="rectangle">
+                <solid android:color="@color/color_app_bg" />
+                <corners android:radius="@dimen/clay_button_radius" />
+                <stroke android:width="1dp" android:color="@color/color_secondary" />
+            </shape>
+        </inset>
     </item>
-
-    <!-- 기본 상태의 아래쪽 그림자와 밝은 표면 -->
     <item>
-        <layer-list>
-            <item android:left="2dp" android:top="4dp" android:right="2dp">
-                <shape android:shape="rectangle">
-                    <solid android:color="@color/bg_shadow" />
-                    <corners android:radius="@dimen/clay_button_radius" />
-                </shape>
-            </item>
-            <item android:bottom="3dp">
-                <shape android:shape="rectangle">
-                    <gradient
-                        android:angle="135"
-                        android:startColor="@color/clay_highlight"
-                        android:endColor="@color/clay_surface" />
-                    <corners android:radius="@dimen/clay_button_radius" />
-                    <stroke
-                        android:width="1dp"
-                        android:color="@color/clay_stroke_light" />
-                </shape>
-            </item>
-        </layer-list>
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:startColor="@color/color_card" android:endColor="@color/color_app_bg" />
+            <corners android:radius="@dimen/clay_button_radius" />
+            <stroke android:width="1dp" android:color="@color/color_card" />
+        </shape>
     </item>
 </selector>

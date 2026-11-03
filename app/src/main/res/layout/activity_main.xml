@@ -3,6 +3,8 @@
 
 <!-- 시스템 상태 표시줄 영역 처리 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_app_bg"
@@ -10,6 +12,8 @@
 
     <!-- 화면 콘텐츠의 좌우 및 상하 여백 유지 -->
     <LinearLayout
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -17,6 +21,8 @@
 
         <!-- 화면 제목 및 루틴 추가 버튼 -->
         <LinearLayout
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -30,15 +36,14 @@
                 android:textColor="@color/clay_text"
                 android:textSize="24sp" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/ClayButton"
                 android:id="@+id/addRoutineButton"
-                android:layout_width="56dp"
+                android:layout_width="@dimen/clay_button_height"
                 android:layout_height="@dimen/clay_button_height"
                 android:background="@drawable/bg_button_primary"
-                android:backgroundTint="@null"
                 android:contentDescription="@string/add_routine"
                 android:text="@string/add_symbol"
-                android:textColor="@color/clay_text"
                 android:textSize="22sp" />
 
         </LinearLayout>
@@ -51,11 +56,16 @@
             android:layout_marginTop="@dimen/clay_small_gap"
             android:layout_weight="1"
             android:clipToPadding="false"
+            android:clipChildren="false"
+            android:paddingBottom="@dimen/clay_small_gap"
             android:paddingTop="@dimen/clay_small_gap" />
 
         <!-- 목록이 비어 있을 때 표시할 안내 영역 -->
         <LinearLayout
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:id="@+id/emptyState"
+            style="@style/ClaySurface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -72,15 +82,14 @@
                 android:textColor="@color/clay_text"
                 android:textSize="16sp" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/ClayButton"
                 android:id="@+id/emptyAddButton"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/clay_button_height"
                 android:layout_marginTop="@dimen/clay_small_gap"
                 android:background="@drawable/bg_button_primary"
-                android:backgroundTint="@null"
-                android:text="@string/add_routine"
-                android:textColor="@color/clay_text" />
+                android:text="@string/add_routine" />
 
         </LinearLayout>
 

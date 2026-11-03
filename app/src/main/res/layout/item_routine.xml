@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- item_routine.xml: 목록의 루틴 카드 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    style="@style/ClaySurface"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
     android:background="@drawable/bg_card_clay"
-    android:elevation="6dp"
     android:orientation="vertical"
     android:padding="@dimen/clay_content_padding">
 
     <LinearLayout
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -21,26 +25,25 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/clay_text"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/ClayButton"
             android:id="@+id/editRoutineButton"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/clay_button_height"
             android:background="@drawable/bg_button_primary"
-            android:backgroundTint="@null"
-            android:text="@string/edit"
-            android:textColor="@color/clay_text" />
+            android:text="@string/edit" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/ClayButton"
             android:id="@+id/deleteRoutineButton"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/clay_button_height"
             android:layout_marginStart="@dimen/clay_small_gap"
             android:background="@drawable/bg_button_primary"
-            android:backgroundTint="@null"
-            android:text="@string/delete"
-            android:textColor="@color/clay_text" />
+            android:text="@string/delete" />
     </LinearLayout>
 
     <!-- 운동, 휴식 시간과 세트 수 -->
@@ -53,13 +56,12 @@
         android:textSize="15sp" />
 
     <!-- 타이머 화면 이동 버튼 -->
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/ClayButton"
         android:id="@+id/startRoutineButton"
         android:layout_width="match_parent"
         android:layout_height="@dimen/clay_button_height"
         android:layout_marginTop="@dimen/clay_small_gap"
         android:background="@drawable/bg_button_work"
-        android:backgroundTint="@null"
-        android:text="@string/open_routine"
-        android:textColor="@color/clay_on_work" />
+        android:text="@string/open_routine" />
 </LinearLayout>

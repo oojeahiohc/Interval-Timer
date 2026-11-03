@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.intervaltimer.R;
@@ -147,12 +146,8 @@ public class TimerActivity extends AppCompatActivity {
 
         if (state.state == TimerState.READY) {
             phaseText.setText(R.string.work_phase);
-            phaseText.setTextColor(ContextCompat.getColor(
-                    this, R.color.color_work));
             remainingText.setBackgroundResource(
                     R.drawable.bg_timer_panel);
-            remainingText.setTextColor(ContextCompat.getColor(
-                    this, R.color.clay_on_work));
 
             startTimerButton.setEnabled(true);
             startTimerButton.setVisibility(View.VISIBLE);
@@ -165,12 +160,8 @@ public class TimerActivity extends AppCompatActivity {
 
         if (state.state == TimerState.COMPLETED) {
             phaseText.setText(R.string.timer_complete_phase);
-            phaseText.setTextColor(ContextCompat.getColor(
-                    this, R.color.clay_text));
             remainingText.setBackgroundResource(
                     R.drawable.bg_card_clay);
-            remainingText.setTextColor(ContextCompat.getColor(
-                    this, R.color.clay_text));
             controlRow.setVisibility(View.GONE);
             completedState.setVisibility(View.VISIBLE);
             return;
@@ -182,25 +173,15 @@ public class TimerActivity extends AppCompatActivity {
                 ? (isWork ? R.string.work_paused : R.string.rest_paused)
                 : (isWork ? R.string.work_phase : R.string.rest_phase));
 
-        phaseText.setTextColor(ContextCompat.getColor(this,
-                isWork ? R.color.color_work : R.color.color_rest));
         remainingText.setBackgroundResource(isWork
                 ? R.drawable.bg_timer_panel
                 : R.drawable.bg_timer_panel_rest);
-        remainingText.setTextColor(ContextCompat.getColor(this,
-                isWork ? R.color.clay_on_work : R.color.clay_on_rest));
 
         int buttonBackground = isWork
                 ? R.drawable.bg_button_work : R.drawable.bg_button_rest;
-        int buttonTextColor = isWork
-                ? R.color.clay_on_work : R.color.clay_on_rest;
 
         pauseButton.setBackgroundResource(buttonBackground);
         resumeButton.setBackgroundResource(buttonBackground);
-        pauseButton.setTextColor(
-                ContextCompat.getColor(this, buttonTextColor));
-        resumeButton.setTextColor(
-                ContextCompat.getColor(this, buttonTextColor));
 
         controlRow.setVisibility(View.VISIBLE);
         completedState.setVisibility(View.GONE);

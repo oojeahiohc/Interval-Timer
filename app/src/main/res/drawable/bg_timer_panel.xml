@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- bg_timer_panel.xml: 타이머 중앙 패널 -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!-- 패널 아래쪽의 진한 보라색 그림자 -->
-    <item android:left="3dp" android:top="6dp" android:right="3dp">
-        <shape android:shape="rectangle">
-            <solid android:color="@color/work_dark" />
-            <corners android:radius="@dimen/clay_timer_radius" />
-        </shape>
-    </item>
-
-    <!-- 운동 강조색의 그라데이션 표면 -->
-    <item android:bottom="4dp">
-        <shape android:shape="rectangle">
-            <gradient
-                android:angle="135"
-                android:startColor="@color/work_light"
-                android:endColor="@color/color_work" />
-            <corners android:radius="@dimen/clay_timer_radius" />
-            <stroke
-                android:width="1dp"
-                android:color="@color/work_outline" />
-        </shape>
-    </item>
-</layer-list>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient android:angle="270" android:startColor="@color/color_rest" android:endColor="@color/color_work" />
+    <corners android:radius="@dimen/clay_timer_radius" />
+    <stroke android:width="1dp" android:color="@color/color_rest" />
+</shape>
