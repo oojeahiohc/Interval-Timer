@@ -5,9 +5,11 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+// Room에 이 클래스의 데이터를 routines 테이블에 저장
 @Entity(tableName = "routines")
 public class Routine {
 
+    // 이름이 같아도 루틴을 구별할 ID를 자동 생성한다.
     @PrimaryKey(autoGenerate = true)
     public long id;
 

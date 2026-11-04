@@ -43,7 +43,7 @@ public class RoutineEditActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(view -> finish());
         saveButton.setOnClickListener(view -> saveRoutine());
 
-        // 수정 화면이면 DB에서 현재 ID에 해당하는 값을 가져온다.
+        // ID가 있으면 기존 루틴을 조회해 수정하고, 없으면 새로 작성한다.
         if (getIntent().hasExtra(EXTRA_ROUTINE_ID)) {
             long id = getIntent().getLongExtra(EXTRA_ROUTINE_ID, -1L);
             saveButton.setEnabled(false);
@@ -73,6 +73,7 @@ public class RoutineEditActivity extends AppCompatActivity {
     }
 
     private void saveRoutine() {
+        // 입력값을 문자열로 읽고 이름 앞뒤의 공백을 제거한다.
         String name = nameInput.getText().toString().trim();
 
         if (name.isEmpty() || name.length() > 30) {
@@ -93,9 +94,12 @@ public class RoutineEditActivity extends AppCompatActivity {
                 R.string.error_rounds);
         if (rounds == null) return;
 
+        // 입력 검사를 통과한 값으로 저장할 데이터를 만든다.
         Routine routine = new Routine(name, work, rest, rounds);
+        // 저장 결과를 받기 전까지 중복 저장을 막는다.
         saveButton.setEnabled(false);
 
+        // 저장 결과를 받으면 성공 시 현재 편집 화면을 닫는다.
         RoutineRepository.SaveCallback callback = success -> {
             if (success) {
                 finish();
@@ -117,6 +121,7 @@ public class RoutineEditActivity extends AppCompatActivity {
 
     private Integer readNumber(EditText input, int min, int max,
                                int errorMessage) {
+        // 숫자 입력도 문자열로 읽은 뒤 정수로 변환해 범위를 검사한다.
         String text = input.getText().toString().trim();
         try {
             int value = Integer.parseInt(text);

@@ -20,6 +20,7 @@ import java.util.List;
 public class RoutineAdapter
         extends RecyclerView.Adapter<RoutineAdapter.RoutineViewHolder> {
 
+    // 카드의 버튼 요청을 Activity에 전달한다.
     public interface OnRoutineActionListener {
         void onStart(Routine routine);
         void onEdit(Routine routine);
@@ -35,6 +36,7 @@ public class RoutineAdapter
 
     @SuppressLint("NotifyDataSetChanged")
     public void submitRoutines(List<Routine> updated) {
+        // 전달받은 목록으로 교체하고 RecyclerView에 갱신을 알린다.
         routines.clear();
         if (updated != null) {
             routines.addAll(updated);
@@ -46,6 +48,7 @@ public class RoutineAdapter
     @Override
     public RoutineViewHolder onCreateViewHolder(
             @NonNull ViewGroup parent, int viewType) {
+        // 카드가 새로 필요하면 XML로 실제 View를 만든다.
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_routine, parent, false);
         return new RoutineViewHolder(view);
@@ -54,6 +57,7 @@ public class RoutineAdapter
     @Override
     public void onBindViewHolder(
             @NonNull RoutineViewHolder holder, int position) {
+        // 현재 위치의 루틴 데이터를 카드에 연결한다.
         Routine routine = routines.get(position);
 
         holder.nameText.setText(routine.name);
@@ -80,6 +84,7 @@ public class RoutineAdapter
         return routines.size();
     }
 
+    // 카드 안의 View 참조를 보관해 다시 찾지 않고 사용한다.
     static class RoutineViewHolder extends RecyclerView.ViewHolder {
         final TextView nameText;
         final TextView summaryText;

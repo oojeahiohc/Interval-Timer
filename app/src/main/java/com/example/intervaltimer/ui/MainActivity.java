@@ -23,8 +23,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 목록 화면 XML을 먼저 만든 뒤 그 안의 View를 찾는다.
         setContentView(R.layout.activity_main);
 
+        // 화면에서는 Repository를 통해 DB에 접근한다.
         repository = new RoutineRepository(getApplicationContext());
 
         RecyclerView recyclerView =
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         Button addButton = findViewById(R.id.addRoutineButton);
         Button emptyAddButton = findViewById(R.id.emptyAddButton);
 
+        // 목록을 세로로 배치
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new RoutineAdapter(
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onEdit(Routine routine) {
+                        // 수정할 루틴의 ID를 편집 화면에 전달한다.
                         Intent intent = new Intent(
                                 MainActivity.this,
                                 RoutineEditActivity.class);
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         );
         recyclerView.setAdapter(adapter);
 
-        // DB 목록이 변경될 때마다 카드와 빈 화면을 갱신한다.
+        // 이 화면의 생명주기에 맞춰 목록을 관찰하고 변경 시 카드를 갱신한다.
         repository.getAllRoutines().observe(this, routines -> {
             adapter.submitRoutines(routines);
 
@@ -76,15 +80,18 @@ public class MainActivity extends AppCompatActivity {
                     isEmpty ? View.VISIBLE : View.GONE);
         });
 
+        // 클릭했을 때 실행할 동작을 등록한다.
         addButton.setOnClickListener(view -> openNewRoutine());
         emptyAddButton.setOnClickListener(view -> openNewRoutine());
     }
 
     private void openNewRoutine() {
+        // ID 없이 열면 새 루틴을 작성한다.
         startActivity(new Intent(this, RoutineEditActivity.class));
     }
 
     private void showDeleteConfirmation(Routine routine) {
+        // 삭제 확인 버튼을 눌렀을 때만 DB 삭제를 요청한다.
         new AlertDialog.Builder(this)
                 .setTitle(R.string.confirm_delete_title)
                 .setMessage(R.string.confirm_delete_message)

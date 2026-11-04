@@ -14,12 +14,14 @@ import java.util.concurrent.Executors;
 
 public class RoutineRepository {
 
+    // 저장 요청을 보낸 화면에 성공 여부를 전달한다.
     public interface SaveCallback {
         void onResult(boolean success);
     }
 
     // 쓰기 작업은 하나의 DB 작업 스레드에서 순서대로 처리한다.
     private static final ExecutorService DB_EXECUTOR = Executors.newSingleThreadExecutor();
+    // DB 작업 결과를 화면을 갱신할 수 있는 메인 스레드로 전달한다.
     private static final Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
     private final RoutineDao dao;
 
@@ -55,6 +57,7 @@ public class RoutineRepository {
     }
 
     public void insertRoutine(Routine routine, SaveCallback callback) {
+        // 별도 스레드에서 저장하고 메인 스레드에서 결과 콜백을 호출한다.
         DB_EXECUTOR.execute(() -> {
             boolean saved = dao.insertRoutine(routine) > 0;
             MAIN_HANDLER.post(() -> callback.onResult(saved));
@@ -69,6 +72,7 @@ public class RoutineRepository {
     }
 
     public void deleteRoutine(Routine routine) {
+        // 삭제로 바뀐 목록은 Room의 LiveData를 통해 화면에 전달된다.
         DB_EXECUTOR.execute(() -> dao.deleteRoutine(routine));
     }
 }
